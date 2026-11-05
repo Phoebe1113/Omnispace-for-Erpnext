@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "creation": "2026-11-05 16:30:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Omnispace",
+ "name": "Omni Settings",
+ "owner": "Administrator",
+ "modified": "2026-11-05 16:30:00.000000",
+ "modified_by": "Administrator",
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "enabled",
+  "panel_section",
+  "all_doctypes",
+  "panel_doctypes",
+  "column_break_panel",
+  "history_limit",
+  "panel_roles",
+  "features_section",
+  "enable_my_documents",
+  "enable_notification_colors"
+ ],
+ "fields": [
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1"
+  },
+  {
+   "fieldname": "panel_section",
+   "fieldtype": "Section Break",
+   "label": "Panel"
+  },
+  {
+   "fieldname": "all_doctypes",
+   "fieldtype": "Check",
+   "label": "Show Panel on All DocTypes",
+   "default": "0",
+   "description": "When unchecked, the panel only appears on the DocTypes listed below"
+  },
+  {
+   "fieldname": "panel_doctypes",
+   "fieldtype": "Table",
+   "label": "Panel DocTypes",
+   "options": "Omni Settings DocType",
+   "depends_on": "eval:!doc.all_doctypes"
+  },
+  {
+   "fieldname": "column_break_panel",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "history_limit",
+   "fieldtype": "Int",
+   "label": "History Limit",
+   "default": "20",
+   "non_negative": 1
+  },
+  {
+   "fieldname": "panel_roles",
+   "fieldtype": "Table",
+   "label": "Roles Allowed to Open the Panel",
+   "options": "Has Role",
+   "description": "Leave empty to allow everyone who can read the document"
+  },
+  {
+   "fieldname": "features_section",
+   "fieldtype": "Section Break",
+   "label": "Extra Features"
+  },
+  {
+   "fieldname": "enable_my_documents",
+   "fieldtype": "Check",
+   "label": "My Documents Button on List Views",
+   "default": "1"
+  },
+  {
+   "fieldname": "enable_notification_colors",
+   "fieldtype": "Check",
+   "label": "Color Notifications by Document Status",
+   "default": "1"
+  }
+ ],
+ "permissions": [
+  {
+   "create": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "issingle": 1
+}

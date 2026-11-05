@@ -1,0 +1,131 @@
+{
+ "actions": [],
+ "creation": "2026-11-05 16:30:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Omnispace",
+ "name": "Omni Rule",
+ "owner": "Administrator",
+ "modified": "2026-11-05 16:30:00.000000",
+ "modified_by": "Administrator",
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "title",
+  "enabled",
+  "reference_doctype",
+  "column_break_main",
+  "event",
+  "action",
+  "rule_section",
+  "fields",
+  "condition",
+  "message",
+  "exempt_section",
+  "exempt_roles"
+ ],
+ "fields": [
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "label": "Enabled",
+   "default": "1",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "reference_doctype",
+   "fieldtype": "Link",
+   "label": "Reference DocType",
+   "options": "DocType",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "column_break_main",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "event",
+   "fieldtype": "Select",
+   "label": "Apply On",
+   "options": "Save\nSubmit\nCancel",
+   "default": "Save",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "action",
+   "fieldtype": "Select",
+   "label": "Action",
+   "options": "Block\nMandatory\nRead Only\nWarning",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "rule_section",
+   "fieldtype": "Section Break",
+   "label": "Rule"
+  },
+  {
+   "fieldname": "fields",
+   "fieldtype": "Small Text",
+   "label": "Fields",
+   "depends_on": "eval:['Mandatory','Read Only'].includes(doc.action)",
+   "mandatory_depends_on": "eval:['Mandatory','Read Only'].includes(doc.action)",
+   "description": "Fieldnames of the Reference DocType, one per line"
+  },
+  {
+   "fieldname": "condition",
+   "fieldtype": "Code",
+   "label": "Condition",
+   "options": "Python",
+   "description": "Python expression using <code>doc</code>, e.g. <code>doc.grand_total &gt; 100000000</code>. Leave empty to always apply."
+  },
+  {
+   "fieldname": "message",
+   "fieldtype": "Small Text",
+   "label": "Message",
+   "description": "Shown to the user when the rule blocks or warns"
+  },
+  {
+   "fieldname": "exempt_section",
+   "fieldtype": "Section Break",
+   "label": "Exemptions"
+  },
+  {
+   "fieldname": "exempt_roles",
+   "fieldtype": "Table",
+   "label": "Exempt Roles",
+   "options": "Has Role",
+   "description": "Users with any of these roles are not affected. Administrator is always exempt."
+  }
+ ],
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "autoname": "OMNI-RULE-.####",
+ "naming_rule": "Expression (old style)",
+ "title_field": "title",
+ "show_title_field_in_link": 1,
+ "track_changes": 1
+}

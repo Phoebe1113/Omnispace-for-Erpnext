@@ -1,0 +1,41 @@
+Omnispace,Omnispace
+Omni Settings,Cài đặt Omnispace
+Omni Rule,Quy tắc Omnispace
+My Documents,Của tôi
+Overview,Tổng quan
+History,Lịch sử
+Links,Liên kết
+Activity,Hoạt động
+This document refers to,Chứng từ này tham chiếu tới
+Referenced by,Được tham chiếu bởi
+You can,Bạn có thể
+Idle,Không thay đổi
+No changes yet,Chưa có thay đổi
+No activity,Chưa có hoạt động
+No data,Không có dữ liệu
+Could not load,Không tải được
+Track Changes is off for this DocType.,DocType này chưa bật Track Changes.
+"Track Changes is off for this DocType, so field history is not recorded.","DocType này chưa bật Track Changes nên không ghi lại lịch sử thay đổi trường."
+Show Panel on All DocTypes,Hiện panel trên mọi DocType
+Panel DocTypes,DocType có panel
+History Limit,Số dòng lịch sử
+Roles Allowed to Open the Panel,Vai trò được mở panel
+Extra Features,Tính năng thêm
+My Documents Button on List Views,Nút "Của tôi" trên danh sách
+Color Notifications by Document Status,Tô màu thông báo theo trạng thái chứng từ
+Reference DocType,DocType áp dụng
+Apply On,Áp dụng khi
+Block,Chặn
+Mandatory,Bắt buộc
+Read Only,Chỉ đọc
+Warning,Cảnh báo
+Condition,Điều kiện
+Exempt Roles,Vai trò được miễn
+Not Allowed,Không được phép
+Missing Values,Thiếu dữ liệu
+Blocked by rule: {0},Bị chặn bởi quy tắc: {0}
+Required by rule {0}: {1},Quy tắc {0} bắt buộc: {1}
+Locked by rule {0}: {1},Quy tắc {0} khóa: {1}
+Omnispace panel is not enabled for {0},Panel Omnispace chưa bật cho {0}
+Omni Rule {0} has an invalid condition. Contact your administrator.,Quy tắc {0} có điều kiện lỗi. Liên hệ quản trị viên.
+This tab could not be loaded,Không tải được tab này
