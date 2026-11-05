@@ -16,6 +16,7 @@
 	// ---------- drawer ----------
 	let $drawer = null;
 	let current = null; // {doctype, name}
+	let currentFrm = null;
 
 	function ensureDrawer() {
 		if ($drawer) return $drawer;
@@ -54,6 +55,11 @@
 			<div class="omni-body"></div>
 		</div>`).appendTo("body");
 		$drawer.on("click", ".omni-close", close);
+		$drawer.on("click", ".omni-jump", function () {
+			const frm = currentFrm, f = $(this).attr("data-anchor");
+			close();
+			frm && frm.scroll_to_field(f);
+		});
 		$drawer.on("click", ".omni-reload", () => current && load(current.doctype, current.name));
 		$(document).on("keydown", (e) => e.key === "Escape" && $drawer.hasClass("open") && close());
 		frappe.router.on("change", close);
@@ -63,11 +69,13 @@
 	function close() {
 		$drawer && $drawer.removeClass("open");
 		current = null;
+		currentFrm = null;
 	}
 
 	function open(frm) {
 		ensureDrawer().addClass("open");
 		current = { doctype: frm.doctype, name: frm.doc.name };
+		currentFrm = frm;
 		$drawer.find(".omni-title").text(`${__(frm.doctype)} · ${frm.doc.name}`);
 		load(frm.doctype, frm.doc.name);
 	}
@@ -90,7 +98,7 @@
 			[`${__("History")} (${d.history.length})`, () => history(d.history, d.overview)],
 			[`${__("Links")} (${d.links.length + d.backlinks.length})`, () => links(d.links, d.backlinks)],
 			[`${__("Activity")} (${d.comments.length})`, () => comments(d.comments)],
-			...(d.tabs || []).map((t) => [__(t.label || "Tab"), () => providerTab(t)]),
+			...(d.tabs || []).map((t) => [__(t.label || "Tab"), () => anchorJump(t) + providerTab(t)]),
 		];
 		const $tabs = $drawer.find(".omni-tabs").empty();
 		const $body = $drawer.find(".omni-body");
@@ -173,6 +181,12 @@
 			.join("");
 	}
 
+	// Omni Anchor: a provider tab bound to an HTML field on the form (the bridge between panel and form)
+	function anchorJump(t) {
+		if (!t.anchor || !currentFrm || !currentFrm.fields_dict[t.anchor]) return "";
+		return `<div style="margin-bottom:8px"><button class="btn btn-xs btn-default omni-jump" data-anchor="${esc(t.anchor)}">${__("Show on form")}</button></div>`;
+	}
+
 	function providerTab(t) {
 		if (t.error) return `<div class="omni-empty">${esc(t.error)}</div>`;
 		if (t.html) return t.html; // trusted: produced by server-side app code
@@ -192,6 +206,25 @@
 		(rules.mandatory || []).forEach((f) => frm.set_df_property(f, "reqd", 1));
 	}
 
+	function fillAnchors(frm) {
+		const fields = ((cfg().anchors || {})[frm.doctype] || []).filter((f) => frm.fields_dict[f]);
+		if (!fields.length) return;
+		fields.forEach((f) => frm.fields_dict[f].$wrapper.html(`<div class="text-muted">${__("Loading")}...</div>`));
+		frappe
+			.xcall("omnispace.panel.get_anchor_tabs", { doctype: frm.doctype, name: frm.doc.name })
+			.then((tabs) => {
+				const done = new Set();
+				(tabs || []).forEach((t) => {
+					const fd = frm.fields_dict[t.anchor];
+					if (!fd) return;
+					fd.$wrapper.html((done.has(t.anchor) ? fd.$wrapper.html() : "") + providerTab(t));
+					done.add(t.anchor);
+				});
+				fields.filter((f) => !done.has(f)).forEach((f) => frm.fields_dict[f].$wrapper.empty());
+			})
+			.catch(() => fields.forEach((f) => frm.fields_dict[f].$wrapper.empty()));
+	}
+
 	// ---------- hook into every form ----------
 	$(document).on("form-refresh", (e, frm) => {
 		if (!frm || !frm.doc || frm.is_new()) return;
@@ -200,6 +233,7 @@
 			frm.add_custom_button(__("Omnispace"), () => open(frm));
 			if (current && current.doctype === frm.doctype && current.name === frm.doc.name) load(frm.doctype, frm.doc.name);
 		}
+		if (c.enabled) fillAnchors(frm);
 		if ((c.rule_doctypes || []).includes(frm.doctype)) {
 			frappe.xcall("omnispace.panel.get_form_rules", { doctype: frm.doctype, name: frm.doc.name }).then((r) => applyRules(frm, r || {}));
 		}
@@ -207,4 +241,5 @@
 
 	frappe.provide("omnispace");
 	omnispace.open_panel = open;
+	omnispace.refresh_anchors = fillAnchors;
 })();

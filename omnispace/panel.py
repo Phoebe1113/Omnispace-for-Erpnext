@@ -37,6 +37,25 @@ def get_panel(doctype, name):
 
 
 @frappe.whitelist()
+def get_anchor_tabs(doctype, name):
+	"""Provider tabs that fill Omni Anchor fields (HTML fields on the form itself)."""
+	if not get_settings().enabled:
+		return []
+	frappe.has_permission(doctype, "read", name, throw=True)
+	anchors = set(get_anchors().get(doctype, []))
+	if not anchors:
+		return []
+	doc = frappe.get_doc(doctype, name)
+	return [t for t in _provider_tabs(doc) if t.get("anchor") in anchors]
+
+
+def get_anchors():
+	"""{doctype: [fieldname, ...]} declared by apps through the omnispace_anchors hook."""
+	hooks = frappe.get_hooks("omnispace_anchors") or {}
+	return {dt: list(dict.fromkeys(fields)) for dt, fields in hooks.items()}
+
+
+@frappe.whitelist()
 def get_form_rules(doctype, name):
 	frappe.has_permission(doctype, "read", name, throw=True)
 	return form_rules(frappe.get_doc(doctype, name))

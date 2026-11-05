@@ -48,6 +48,19 @@ def so_tracking(doc):
     # or {"label": "...", "html": "<div>...</div>"}  (server-generated HTML is trusted)
 ```
 
+### Omni Anchor – bridge fields on the form
+
+An *anchor* is an HTML field on the form that a provider tab is bound to (`"anchor": "<fieldname>"` in the tab dict).
+
+- In the panel, an anchored tab gets a **Show on form** button that scrolls to that field.
+- If the app also lists the field in `omnispace_anchors`, Omnispace **renders the tab into the field** on every form refresh — no per-DocType JS needed:
+
+```python
+omnispace_anchors = {"Sales Order": ["ys_so_tracking"]}
+```
+
+Leave a field out of `omnispace_anchors` while another script still renders it, so the two do not overwrite each other.
+
 Permission is checked before providers run; providers should still only return data the user may see.
 
 ## License
