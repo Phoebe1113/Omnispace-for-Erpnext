@@ -1,0 +1,31 @@
+{
+ "actions": [],
+ "creation": "2026-11-05 19:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "module": "Omnispace",
+ "name": "Omni Settings Warehouse",
+ "owner": "Administrator",
+ "modified": "2026-11-05 19:00:00.000000",
+ "modified_by": "Administrator",
+ "links": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "field_order": [
+  "warehouse"
+ ],
+ "fields": [
+  {
+   "fieldname": "warehouse",
+   "fieldtype": "Link",
+   "label": "Warehouse",
+   "options": "Warehouse",
+   "reqd": 1,
+   "in_list_view": 1
+  }
+ ],
+ "permissions": [],
+ "istable": 1,
+ "editable_grid": 1
+}

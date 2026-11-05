@@ -20,6 +20,7 @@ FEATURES = (
 )
 for _f in FEATURES:
 	DEFAULTS["enable_" + _f] = 1
+DEFAULTS.update(enable_warehouse_guard=0, warehouse_guard_action="Block", warehouse_guard_extra=[])
 
 
 def get_settings():
@@ -37,6 +38,9 @@ def get_settings():
 		enable_my_documents=s.enable_my_documents,
 		enable_notification_colors=s.enable_notification_colors,
 		**{"enable_" + f: s.get("enable_" + f) for f in FEATURES},
+		enable_warehouse_guard=s.get("enable_warehouse_guard"),
+		warehouse_guard_action=s.get("warehouse_guard_action") or "Block",
+		warehouse_guard_extra=[r.warehouse for r in (s.get("warehouse_guard_extra") or [])],
 	)
 
 

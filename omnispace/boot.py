@@ -23,4 +23,5 @@ def boot_session(bootinfo):
 		"rule_doctypes": rdt,
 		"anchors": get_anchors() if s.enabled else {},
 		"features": enabled_features(s),
+		"warehouse_guard": int(bool(s.enabled and s.get("enable_warehouse_guard"))),
 	}

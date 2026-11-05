@@ -53,3 +53,11 @@ Purchase Order Tracking (Purchase Receipt),Theo dõi đơn mua (Phiếu nhập)
 Purchase Progress (Material Request),Tiến độ mua hàng (Yêu cầu vật tư)
 Stock and Request History (Material Request),Tồn kho và lịch sử yêu cầu (Yêu cầu vật tư)
 Last Purchase (Purchase Order),Lần mua gần nhất (Đơn mua hàng)
+Warehouse by Item Defaults,Kho theo mặc định của Item
+Enable Warehouse Guard,Bật kiểm soát kho
+When a Wrong Warehouse Is Used,Khi dùng sai kho
+Additional Production Warehouses,Kho sản xuất bổ sung
+Wrong Warehouse,Sai kho
+Check Warehouses,Kiểm tra kho
+"Row {0}: {1} must use warehouse {2} (default from {3}){4}, not {5}.","Dòng {0}: {1} phải dùng kho {2} (mặc định từ {3}){4}, không được dùng {5}."
+ or a production warehouse, hoặc kho sản xuất

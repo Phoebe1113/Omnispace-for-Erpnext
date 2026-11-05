@@ -17,11 +17,14 @@ after_migrate = "omnispace.install.after_migrate"
 
 # Inline sections on standard ERPNext forms (each one can be switched off in Omni Settings)
 doctype_js = {
-	"Sales Order": "public/js/forms/sales_order.js",
-	"Delivery Note": "public/js/forms/delivery_note.js",
-	"Purchase Receipt": "public/js/forms/purchase_receipt.js",
-	"Material Request": "public/js/forms/material_request.js",
-	"Purchase Order": "public/js/forms/purchase_order.js",
+	"Sales Order": ["public/js/forms/sales_order.js", "public/js/forms/warehouse_guard.js"],
+	"Delivery Note": ["public/js/forms/delivery_note.js", "public/js/forms/warehouse_guard.js"],
+	"Purchase Receipt": ["public/js/forms/purchase_receipt.js", "public/js/forms/warehouse_guard.js"],
+	"Material Request": ["public/js/forms/material_request.js", "public/js/forms/warehouse_guard.js"],
+	"Purchase Order": ["public/js/forms/purchase_order.js", "public/js/forms/warehouse_guard.js"],
+	"Sales Invoice": "public/js/forms/warehouse_guard.js",
+	"Purchase Invoice": "public/js/forms/warehouse_guard.js",
+	"Stock Entry": "public/js/forms/warehouse_guard.js",
 }
 
 # Omni Rule enforcement runs server-side for every DocType (form, API, import).
@@ -30,7 +33,15 @@ doc_events = {
 		"validate": "omnispace.rules.on_validate",
 		"before_submit": "omnispace.rules.on_submit",
 		"before_cancel": "omnispace.rules.on_cancel",
-	}
+	},
+	# Warehouse Guard (off until enabled in Omni Settings)
+	**{
+		dt: {"validate": "omnispace.warehouse_guard.validate"}
+		for dt in (
+			"Sales Order", "Delivery Note", "Sales Invoice", "Purchase Order",
+			"Purchase Receipt", "Purchase Invoice", "Material Request", "Stock Entry",
+		)
+	},
 }
 
 # Other apps extend the panel with their own tabs, e.g. in their hooks.py:

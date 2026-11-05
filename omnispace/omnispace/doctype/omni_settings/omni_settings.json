@@ -6,7 +6,7 @@
  "module": "Omnispace",
  "name": "Omni Settings",
  "owner": "Administrator",
- "modified": "2026-11-05 18:30:00.000000",
+ "modified": "2026-11-05 19:00:00.000000",
  "modified_by": "Administrator",
  "links": [],
  "sort_field": "modified",
@@ -30,7 +30,12 @@
   "column_break_sections",
   "enable_mr_progress",
   "enable_mr_stock_history",
-  "enable_po_last_purchase"
+  "enable_po_last_purchase",
+  "warehouse_guard_section",
+  "enable_warehouse_guard",
+  "warehouse_guard_action",
+  "column_break_warehouse",
+  "warehouse_guard_extra"
  ],
  "fields": [
   {
@@ -143,6 +148,38 @@
    "label": "Last Purchase (Purchase Order)",
    "default": "1",
    "description": "Latest PO and supplier quotation per item, with rate change"
+  },
+  {
+   "fieldname": "warehouse_guard_section",
+   "fieldtype": "Section Break",
+   "label": "Warehouse by Item Defaults"
+  },
+  {
+   "fieldname": "enable_warehouse_guard",
+   "fieldtype": "Check",
+   "label": "Enable Warehouse Guard",
+   "default": "0",
+   "description": "Each stock item must use its default warehouse, resolved like ERPNext does: Item Defaults of the Item, then its Item Group, then its Brand (for the document's company). Items without a default warehouse are not checked.<br>Strict (home warehouse only): Sales Order, Delivery Note, Sales/Purchase Invoice with Update Stock, Purchase Order, Purchase Receipt, Material Request of type Purchase / Customer Provided / Subcontracting.<br>Flexible (home or production warehouse): Stock Entry and other Material Requests."
+  },
+  {
+   "fieldname": "warehouse_guard_action",
+   "fieldtype": "Select",
+   "label": "When a Wrong Warehouse Is Used",
+   "options": "Block\nWarning",
+   "default": "Block",
+   "depends_on": "enable_warehouse_guard"
+  },
+  {
+   "fieldname": "column_break_warehouse",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "warehouse_guard_extra",
+   "fieldtype": "Table",
+   "label": "Additional Production Warehouses",
+   "options": "Omni Settings Warehouse",
+   "depends_on": "enable_warehouse_guard",
+   "description": "Production warehouses already include the default WIP, Finished Goods and Scrap warehouses of Manufacturing Settings, the company's In Transit warehouse and the warehouses of a linked Work Order / Subcontracting Order, with their child warehouses. Add more here (e.g. team or subcontractor warehouses); child warehouses are included."
   }
  ],
  "permissions": [
