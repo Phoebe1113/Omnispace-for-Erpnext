@@ -6,7 +6,7 @@
  "module": "Omnispace",
  "name": "Omni Settings",
  "owner": "Administrator",
- "modified": "2026-11-05 16:30:00.000000",
+ "modified": "2026-11-05 18:30:00.000000",
  "modified_by": "Administrator",
  "links": [],
  "sort_field": "modified",
@@ -22,7 +22,15 @@
   "panel_roles",
   "features_section",
   "enable_my_documents",
-  "enable_notification_colors"
+  "enable_notification_colors",
+  "form_sections",
+  "enable_so_tracking",
+  "enable_dn_tracking",
+  "enable_pr_po_tracking",
+  "column_break_sections",
+  "enable_mr_progress",
+  "enable_mr_stock_history",
+  "enable_po_last_purchase"
  ],
  "fields": [
   {
@@ -84,6 +92,57 @@
    "fieldtype": "Check",
    "label": "Color Notifications by Document Status",
    "default": "1"
+  },
+  {
+   "fieldname": "form_sections",
+   "fieldtype": "Section Break",
+   "label": "Form Sections"
+  },
+  {
+   "fieldname": "enable_so_tracking",
+   "fieldtype": "Check",
+   "label": "Sales Order Tracking",
+   "default": "1",
+   "description": "Every line through Material Request, Purchase Order, receipt, Work Order and delivery"
+  },
+  {
+   "fieldname": "enable_dn_tracking",
+   "fieldtype": "Check",
+   "label": "Delivery Tracking (Delivery Note)",
+   "default": "1",
+   "description": "Delivered so far vs. Sales Order qty"
+  },
+  {
+   "fieldname": "enable_pr_po_tracking",
+   "fieldtype": "Check",
+   "label": "Purchase Order Tracking (Purchase Receipt)",
+   "default": "1",
+   "description": "Ordered / received before / this receipt / remaining"
+  },
+  {
+   "fieldname": "column_break_sections",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "enable_mr_progress",
+   "fieldtype": "Check",
+   "label": "Purchase Progress (Material Request)",
+   "default": "1",
+   "description": "Quotation, order, receipt, inspection and invoice per line"
+  },
+  {
+   "fieldname": "enable_mr_stock_history",
+   "fieldtype": "Check",
+   "label": "Stock and Request History (Material Request)",
+   "default": "1",
+   "description": "Stock on hand, open POs and earlier requests"
+  },
+  {
+   "fieldname": "enable_po_last_purchase",
+   "fieldtype": "Check",
+   "label": "Last Purchase (Purchase Order)",
+   "default": "1",
+   "description": "Latest PO and supplier quotation per item, with rate change"
   }
  ],
  "permissions": [

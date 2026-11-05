@@ -2,7 +2,7 @@ import frappe
 
 from omnispace.panel import get_anchors
 from omnispace.rules import rule_doctypes
-from omnispace.settings import can_view_panel, get_settings
+from omnispace.settings import can_view_panel, enabled_features, get_settings
 
 
 def boot_session(bootinfo):
@@ -22,4 +22,5 @@ def boot_session(bootinfo):
 		"notification_colors": int(bool(s.enabled and s.enable_notification_colors)),
 		"rule_doctypes": rdt,
 		"anchors": get_anchors() if s.enabled else {},
+		"features": enabled_features(s),
 	}

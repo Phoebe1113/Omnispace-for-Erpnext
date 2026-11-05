@@ -12,6 +12,18 @@ app_include_js = ["/api/method/omnispace.assets.bundle_js"]
 
 boot_session = "omnispace.boot.boot_session"
 
+after_install = "omnispace.install.after_install"
+after_migrate = "omnispace.install.after_migrate"
+
+# Inline sections on standard ERPNext forms (each one can be switched off in Omni Settings)
+doctype_js = {
+	"Sales Order": "public/js/forms/sales_order.js",
+	"Delivery Note": "public/js/forms/delivery_note.js",
+	"Purchase Receipt": "public/js/forms/purchase_receipt.js",
+	"Material Request": "public/js/forms/material_request.js",
+	"Purchase Order": "public/js/forms/purchase_order.js",
+}
+
 # Omni Rule enforcement runs server-side for every DocType (form, API, import).
 doc_events = {
 	"*": {

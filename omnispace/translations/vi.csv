@@ -40,3 +40,16 @@ Omnispace panel is not enabled for {0},Panel Omnispace chưa bật cho {0}
 Omni Rule {0} has an invalid condition. Contact your administrator.,Quy tắc {0} có điều kiện lỗi. Liên hệ quản trị viên.
 This tab could not be loaded,Không tải được tab này
 Show on form,Xem trên form
+Form Sections,Mục trên form
+Sales Order Tracking,Theo dõi đơn bán hàng
+Delivery Tracking,Theo dõi giao hàng
+Purchase Order Tracking,Theo dõi đơn mua hàng
+Purchase Progress,Tiến độ mua hàng
+Stock and Request History,Tồn kho và lịch sử yêu cầu
+Last Purchase,Lần mua gần nhất
+Omni SO Tracking,Theo dõi đơn bán hàng (Omni)
+Delivery Tracking (Delivery Note),Theo dõi giao hàng (Phiếu giao hàng)
+Purchase Order Tracking (Purchase Receipt),Theo dõi đơn mua (Phiếu nhập)
+Purchase Progress (Material Request),Tiến độ mua hàng (Yêu cầu vật tư)
+Stock and Request History (Material Request),Tồn kho và lịch sử yêu cầu (Yêu cầu vật tư)
+Last Purchase (Purchase Order),Lần mua gần nhất (Đơn mua hàng)

@@ -10,6 +10,17 @@ DEFAULTS = frappe._dict(
 	enable_notification_colors=1,
 )
 
+FEATURES = (
+	"so_tracking",
+	"dn_tracking",
+	"pr_po_tracking",
+	"mr_progress",
+	"mr_stock_history",
+	"po_last_purchase",
+)
+for _f in FEATURES:
+	DEFAULTS["enable_" + _f] = 1
+
 
 def get_settings():
 	"""Omni Settings as a plain dict; falls back to defaults before the first migrate."""
@@ -25,7 +36,15 @@ def get_settings():
 		panel_roles=[r.role for r in s.panel_roles],
 		enable_my_documents=s.enable_my_documents,
 		enable_notification_colors=s.enable_notification_colors,
+		**{"enable_" + f: s.get("enable_" + f) for f in FEATURES},
 	)
+
+
+def enabled_features(settings=None):
+	settings = settings or get_settings()
+	if not settings.enabled:
+		return {}
+	return {f: 1 for f in FEATURES if settings.get("enable_" + f)}
 
 
 def can_view_panel(settings=None, user=None):

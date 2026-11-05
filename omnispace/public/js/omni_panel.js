@@ -239,7 +239,37 @@
 		}
 	});
 
+	// ---------- inline sections (no custom fields needed) ----------
+	// omnispace.section(frm, key, title) → {$wrapper} placed right after the Items section,
+	// or null when the feature is switched off in Omni Settings.
+	function section(frm, key, title) {
+		const c = cfg();
+		frm.__omni_sections = frm.__omni_sections || {};
+		let $s = frm.__omni_sections[key];
+		if (!c.enabled || !(c.features || {})[key]) {
+			$s && $s.remove();
+			delete frm.__omni_sections[key];
+			return null;
+		}
+		if (!$s || !document.body.contains($s[0])) {
+			$s = $(`<div class="form-section card-section omni-section" data-omni="${esc(key)}">
+				<div class="section-head">${esc(title || key)}</div>
+				<div class="section-body"><div class="omni-section-body" style="width:100%;overflow-x:auto"></div></div>
+			</div>`);
+			const items = frm.fields_dict.items && frm.fields_dict.items.$wrapper.closest(".form-section");
+			if (items && items.length) {
+				const prev = items.nextAll(".omni-section").last();
+				(prev.length ? prev : items).after($s);
+			} else {
+				$(frm.layout.wrapper).append($s);
+			}
+			frm.__omni_sections[key] = $s;
+		}
+		return { $wrapper: $s.find(".omni-section-body") };
+	}
+
 	frappe.provide("omnispace");
+	omnispace.section = section;
 	omnispace.open_panel = open;
 	omnispace.refresh_anchors = fillAnchors;
 })();

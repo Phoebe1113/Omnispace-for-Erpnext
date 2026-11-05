@@ -7,6 +7,7 @@ A Frappe app (ERPNext v16) that adds one context panel to every form and a rule 
 | **Panel** | "Omnispace" button on each enabled form → drawer with Overview, field-level History, Links (both directions), Activity, plus tabs contributed by other apps |
 | **Omni Rule** | Per-DocType rules (Block / Mandatory / Read Only / Warning) with a Python condition, enforced **server-side** on Save / Submit / Cancel — form, REST API and Data Import alike |
 | **Omni Settings** | Which DocTypes get the panel, who may open it, history depth, extra features |
+| **Form sections** | Tracking sections added to standard forms, no custom fields: Sales Order Tracking, Delivery Tracking, Purchase Order Tracking (Purchase Receipt), Purchase Progress and Stock & Request History (Material Request), Last Purchase (Purchase Order); report **Omni SO Tracking** |
 | **Extras** | "My Documents" filter button on list views; notification items colored by document status |
 
 ## Install
@@ -56,7 +57,7 @@ An *anchor* is an HTML field on the form that a provider tab is bound to (`"anch
 - If the app also lists the field in `omnispace_anchors`, Omnispace **renders the tab into the field** on every form refresh — no per-DocType JS needed:
 
 ```python
-omnispace_anchors = {"Sales Order": ["ys_so_tracking"]}
+omnispace_anchors = {"Sales Order": ["my_tracking_html"]}
 ```
 
 Leave a field out of `omnispace_anchors` while another script still renders it, so the two do not overwrite each other.
